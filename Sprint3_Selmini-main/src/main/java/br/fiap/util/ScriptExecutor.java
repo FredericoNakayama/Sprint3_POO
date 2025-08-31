@@ -26,18 +26,15 @@ public class ScriptExecutor {
                 scriptContent.append(line).append("\n");
             }
 
-            // Divide o script em comandos individuais usando ";"
             String[] commands = scriptContent.toString().split(";");
 
             try (Statement stmt = conn.createStatement()) {
                 for (String command : commands) {
-                    // Remove espaços em branco e ignora comandos vazios
                     String trimmedCommand = command.trim();
                     if (!trimmedCommand.isEmpty()) {
                         try {
                             stmt.execute(trimmedCommand);
                         } catch (SQLException e) {
-                            // Imprime a mensagem de erro mas continua a execução
                             System.err.println("Erro ao executar comando: " + trimmedCommand);
                             System.err.println("Erro: " + e.getMessage());
                         }
